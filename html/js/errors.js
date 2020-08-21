@@ -1,4 +1,4 @@
-ErrorDisplay = function(selector) {
+let ErrorDisplay = function(selector) {
 
     let el = document.querySelectorAll(selector)[0];
 
@@ -13,7 +13,7 @@ ErrorDisplay = function(selector) {
 
 };
 
-let skErrMsg = function(size) {
+export function skErrMsg(size, skLen) {
     let errMsg = "Secret Key length must be ";
     errMsg += (skLen * 2).toString();
     errMsg += " hex chars, ";
@@ -22,7 +22,7 @@ let skErrMsg = function(size) {
     return errMsg;
 }
 
-let pkErrMsg = function(size) {
+export function pkErrMsg(size, pkLen) {
     let errMsg = "Public Key length must be ";
     errMsg += (pkLen * 2).toString();
     errMsg += " hex chars, ";
@@ -31,7 +31,7 @@ let pkErrMsg = function(size) {
     return errMsg;
 }
 
-let sigErrMsg = function(size) {
+export function sigErrMsg(size, sigLen) {
     let errMsg = "Signature length must be ";
     errMsg += (sigLen * 2).toString();
     errMsg += " hex chars, ";
@@ -40,7 +40,7 @@ let sigErrMsg = function(size) {
     return errMsg;
 }
 
-let msgErrMsg = function(size) {
+export function msgErrMsg(size) {
     let errMsg = "Message length must be ";
     errMsg += (maxMsgLen).toString();
     errMsg += " chars, ";
@@ -49,7 +49,7 @@ let msgErrMsg = function(size) {
     return errMsg;
 }
 
-let ctErrMsg = function(size) {
+export function ctErrMsg(size) {
     let errMsg = "Ciphertext length must be ";
     errMsg += (ctLen * 2).toString();
     errMsg += " hex chars, ";
@@ -58,8 +58,8 @@ let ctErrMsg = function(size) {
     return errMsg;
 }
 
-deriveError = new ErrorDisplay("#sk-to-pk .error");
-signError = new ErrorDisplay("#sign-msg .error");
-verifyError = new ErrorDisplay("#verify .error");
-encryptError = new ErrorDisplay("#encrypt .error");
-decryptError = new ErrorDisplay("#decrypt .error");
+export let deriveError = new ErrorDisplay("#sk-to-pk .error");
+export let signError = new ErrorDisplay("#sign-msg .error");
+export let verifyError = new ErrorDisplay("#verify .error");
+export let encryptError = new ErrorDisplay("#encrypt .error");
+export let decryptError = new ErrorDisplay("#decrypt .error");

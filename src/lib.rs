@@ -263,8 +263,29 @@ pub fn verify(msg_size: usize) -> bool {
     }
 }
 
+fn generate_u64_from_two_u32(seed1: u32, seed2: u32) -> u64 {
+    ((seed1 as u64) << 32) + (seed2 as u64)
+}
+
+#[test]
+fn test_u64_from_two_u32() {
+    assert_eq!(0x0000_0000_0000_0000u64, generate_u64_from_two_u32(0x0000_0000, 0x0000_0000));
+    assert_eq!(0x0000_0000_0000_0001u64, generate_u64_from_two_u32(0x0000_0000, 0x0000_0001));
+    assert_eq!(0x0000_0000_0000_8000u64, generate_u64_from_two_u32(0x0000_0000, 0x0000_8000));
+    assert_eq!(0x0000_0000_0000_FFFFu64, generate_u64_from_two_u32(0x0000_0000, 0x0000_FFFF));
+    assert_eq!(0x0000_0000_0001_0000u64, generate_u64_from_two_u32(0x0000_0000, 0x0001_0000));
+    assert_eq!(0x0000_0000_8000_0000u64, generate_u64_from_two_u32(0x0000_0000, 0x8000_0000));
+    assert_eq!(0x0000_0000_FFFF_0000u64, generate_u64_from_two_u32(0x0000_0000, 0xFFFF_0000));
+    assert_eq!(0x0000_0001_0000_0000u64, generate_u64_from_two_u32(0x0000_0001, 0x0000_0000));
+    assert_eq!(0x0000_8000_0000_0000u64, generate_u64_from_two_u32(0x0000_8000, 0x0000_0000));
+    assert_eq!(0x0000_FFFF_0000_0000u64, generate_u64_from_two_u32(0x0000_FFFF, 0x0000_0000));
+    assert_eq!(0x0001_0000_0000_0000u64, generate_u64_from_two_u32(0x0001_0000, 0x0000_0000));
+    assert_eq!(0x8000_0000_0000_0000u64, generate_u64_from_two_u32(0x8000_0000, 0x0000_0000));
+    assert_eq!(0xFFFF_0000_0000_0000u64, generate_u64_from_two_u32(0xFFFF_0000, 0x0000_0000));
+}
+
 #[wasm_bindgen]
-pub fn encrypt(msg_size: usize, seed1: u64, seed2: u64) -> usize {
+pub fn encrypt(msg_size: usize, seed1: u32, seed2: u32) -> usize {
     unsafe {
         // create public key vec from input parameters
         let pk = PublicKey::from_bytes(PK_BYTES).unwrap();
@@ -273,7 +294,7 @@ pub fn encrypt(msg_size: usize, seed1: u64, seed2: u64) -> usize {
         for i in 0..msg_size {
             msg.push(MSG_BYTES[i]);
         }
-        let seed: u64 = seed1 << 32 + seed2;
+        let seed = generate_u64_from_two_u32(seed1, seed2);
         let mut rng = CountingRng(seed);
         let ct = pk.encrypt_with_rng(&mut rng, msg);
         let ct_vec = bincode::serialize(&ct).unwrap();
@@ -307,9 +328,9 @@ pub fn decrypt(ct_size: usize) -> usize {
 }
 
 #[wasm_bindgen]
-pub fn generate_poly(threshold: usize, seed1: u64, seed2: u64) -> usize {
+pub fn generate_poly(threshold: usize, seed1: u32, seed2: u32) -> usize {
     unsafe {
-        let seed: u64 = seed1 << 32 + seed2;
+        let seed = generate_u64_from_two_u32(seed1, seed2);
         let mut rng = CountingRng(seed);
         let poly = Poly::random(threshold, &mut rng);
         let poly_vec = bincode::serialize(&poly).unwrap();

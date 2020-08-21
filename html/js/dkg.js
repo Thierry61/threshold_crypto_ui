@@ -1,3 +1,8 @@
+import wasmExports from '../../Cargo.toml'
+
+import { set_rng_values_wasm, pkLen } from './index'
+import { uint8ArrayToHex } from './convert'
+
 (function() {
 
     let clickLocked = false;
@@ -292,7 +297,7 @@
         if (shares.length != totalCells) {
             return;
         }
-        for (i=0; i<totalCells; i++) {
+        for (let i=0; i<totalCells; i++) {
             let share = shares[i];
             if (share.from == activeCell.from) {
                 share.bold();
@@ -308,7 +313,7 @@
         if (shares.length != totalCells) {
             return;
         }
-        for (i=0; i<totalCells; i++) {
+        for (let i=0; i<totalCells; i++) {
             let share = shares[i];
             if (share.from == activeCell.from) {
                 share.unbold();
@@ -324,7 +329,7 @@
         if (shares.length != totalCells) {
             return;
         }
-        for (i=0; i<totalCells; i++) {
+        for (let i=0; i<totalCells; i++) {
             let share = shares[i];
             if (share.to == activeCell.to) {
                 share.bold();
@@ -340,7 +345,7 @@
         if (shares.length != totalCells) {
             return;
         }
-        for (i=0; i<totalCells; i++) {
+        for (let i=0; i<totalCells; i++) {
             let share = shares[i];
             if (share.to == activeCell.to) {
                 share.unbold();
@@ -432,8 +437,8 @@
             DOM.shares.append(row);
         }
         // activate random cell
-        firstFrom = Math.floor(totalNodes * Math.random());
-        firstTo = Math.floor(totalNodes * Math.random());
+        const firstFrom = Math.floor(totalNodes * Math.random());
+        const firstTo = Math.floor(totalNodes * Math.random());
         let firstIndex = firstFrom * totalNodes + firstTo;
         shares[firstIndex].activate();
         // show group master public key

@@ -1,9 +1,15 @@
+import wasmExports from '../../Cargo.toml'
+
+import { asciiToUint8Array, uint8ArrayToAscii, hexToUint8Array, uint8ArrayToHex } from './convert'
+import { skErrMsg, pkErrMsg, sigErrMsg, msgErrMsg, ctErrMsg } from './errors'
+import { deriveError, signError, verifyError, encryptError, decryptError } from './errors'
+
 ///////////////
 // Contants
 ///////////////
 
 const skLen = 32; // bytes
-const pkLen = 48; // bytes
+export const pkLen = 48; // bytes
 const sigLen = 96; // bytes
 const maxMsgLen = 1049600; // bytes
 const maxCtLen = 1049600; // bytes
@@ -151,7 +157,7 @@ function verify_wasm(p, s, m) {
     return verified;
 }
 
-function set_rng_values_wasm() {
+export function set_rng_values_wasm() {
     // Warning if no window.crypto available
     if (!window.crypto) {
         alert("Secure randomness not available in this browser, output is insecure.");
@@ -321,7 +327,7 @@ function skHexToPkHex() {
         return;
     }
     if (skHex.length != skLen * 2) {
-        let errMsg = skErrMsg(skHex.length);
+        let errMsg = skErrMsg(skHex.length, skLen);
         deriveError.show(errMsg);
         return;
     }
@@ -356,7 +362,7 @@ function signMsg() {
             return;
         }
         if (skHex.length != skLen * 2) {
-            let errMsg = skErrMsg(skHex.length);
+            let errMsg = skErrMsg(skHex.length, skLen);
             signError.show(errMsg);
             return;
         }
@@ -401,7 +407,7 @@ function verify() {
             return;
         }
         if (pkHex.length != pkLen * 2) {
-            let errMsg = pkErrMsg(pkHex.length);
+            let errMsg = pkErrMsg(pkHex.length, pkLen);
             verifyError.show(errMsg);
             return;
         }
@@ -413,7 +419,7 @@ function verify() {
             return;
         }
         if (sigHex.length != 192) {
-            let errMsg = sigErrMsg(sigHex.length);
+            let errMsg = sigErrMsg(sigHex.length, sigLen);
             verifyError.show(errMsg);
             return;
         }
@@ -457,7 +463,7 @@ function encrypt() {
             return;
         }
         if (pkHex.length != pkLen * 2) {
-            let errMsg = pkErrMsg(pkHex.length);
+            let errMsg = pkErrMsg(pkHex.length, pkLen);
             encryptError.show(errMsg);
             return;
         }
@@ -496,7 +502,7 @@ function decrypt() {
         return;
     }
     if (skHex.length != skLen * 2) {
-        let errMsg = skErrMsg(skHex.length);
+        let errMsg = skErrMsg(skHex.length, skLen);
         decryptError.show(errMsg);
         return;
     }
