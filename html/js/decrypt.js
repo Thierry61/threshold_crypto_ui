@@ -1,3 +1,9 @@
+import { errorMessages, ErrorDisplay } from './errors'
+import { skLen, maxCtLen } from './constants'
+import { isWasming, wasmHelpers } from './wasm_helpers'
+import { uint8ArrayToAscii, hexToUint8Array } from './convert'
+import { DOM } from './dom'
+
 (function() {
 
 DOM.decrypt = {};
@@ -8,7 +14,7 @@ DOM.decrypt.msg = document.querySelectorAll("#decrypt .msg")[0];
 DOM.decrypt.skHex.addEventListener("input", decrypt);
 DOM.decrypt.ct.addEventListener("input", decrypt);
 
-decryptError = new ErrorDisplay("#decrypt .error");
+const decryptError = new ErrorDisplay("#decrypt .error");
 
 function decrypt() {
     decryptError.hide();

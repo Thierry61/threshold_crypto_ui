@@ -1,3 +1,9 @@
+import wasmExports from '../../Cargo.toml'
+import { wasmHelpers } from './wasm_helpers'
+import { hexToUint8Array, uint8ArrayToHex } from './convert'
+import { OrderedShare } from './ordered_share'
+import { DOM } from './dom'
+
 (function() {
 
 DOM.stk = {}; // simple threshold keys

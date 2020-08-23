@@ -1,4 +1,4 @@
-OrderedShare = function(shareIndex, shareHex) {
+export function OrderedShare(shareIndex, shareHex) {
 
     let self = this;
 

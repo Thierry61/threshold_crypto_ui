@@ -1,0 +1,17 @@
+{
+    "name": "threshold_crypto_wasm_bridge",
+    "collaborators": [
+        "Ian Coleman"
+    ],
+    "version": "0.1.5",
+    "scripts": {
+        "clean": "rm -rf .cache docs dist node_modules",
+        "start": "parcel html/index.html --no-cache --open",
+        "build": "parcel build html/index.html --public-url . --out-dir docs"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "parcel-bundler": "^1.12.4",
+        "parcel-plugin-wasm.rs": "^1.2.16"
+    }
+}

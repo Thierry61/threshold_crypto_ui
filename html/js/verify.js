@@ -1,3 +1,9 @@
+import { errorMessages, ErrorDisplay } from './errors'
+import { pkLen, maxMsgLen } from './constants'
+import { isWasming, wasmHelpers } from './wasm_helpers'
+import { asciiToUint8Array, hexToUint8Array } from './convert'
+import { DOM } from './dom'
+
 (function() {
 
 DOM.verify = {};
@@ -10,7 +16,7 @@ DOM.verify.pkHex.addEventListener("input", verify);
 DOM.verify.msg.addEventListener("input", verify);
 DOM.verify.sig.addEventListener("input", verify);
 
-verifyError = new ErrorDisplay("#verify .error");
+const verifyError = new ErrorDisplay("#verify .error");
 
 let verifyDebounce = null;
 function verify() {

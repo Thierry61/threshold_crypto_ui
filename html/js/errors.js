@@ -1,4 +1,6 @@
-ErrorDisplay = function(selector) {
+import { skLen, pkLen, sigLen, maxMsgLen, ctLen } from './constants'
+
+export function ErrorDisplay(selector) {
 
     let el = document.querySelectorAll(selector)[0];
 
@@ -13,7 +15,7 @@ ErrorDisplay = function(selector) {
 
 };
 
-let errorMessages = {
+export const errorMessages = {
 
     skLength: function(size) {
         let errMsg = "Secret Key length must be ";

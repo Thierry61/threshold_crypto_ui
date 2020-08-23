@@ -1,3 +1,9 @@
+import { errorMessages, ErrorDisplay } from './errors'
+import { pkLen, maxMsgLen } from './constants'
+import { isWasming, wasmHelpers } from './wasm_helpers'
+import { asciiToUint8Array, hexToUint8Array, uint8ArrayToHex } from './convert'
+import { DOM } from './dom'
+
 (function() {
 
 DOM.encrypt = {};
@@ -8,7 +14,7 @@ DOM.encrypt.ct = document.querySelectorAll("#encrypt .ct")[0];
 DOM.encrypt.pkHex.addEventListener("input", encrypt);
 DOM.encrypt.msg.addEventListener("input", encrypt);
 
-encryptError = new ErrorDisplay("#encrypt .error");
+const encryptError = new ErrorDisplay("#encrypt .error");
 
 let encryptDebounce = null;
 function encrypt() {
