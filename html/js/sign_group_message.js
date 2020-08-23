@@ -1,3 +1,9 @@
+import { maxMsgLen } from './constants'
+import { isWasming, wasmHelpers } from './wasm_helpers'
+import { asciiToUint8Array, hexToUint8Array, uint8ArrayToHex } from './convert'
+import { OrderedShare } from './ordered_share'
+import { DOM } from './dom'
+
 (function() {
 
 DOM.sgm = document.querySelectorAll("#thresh-sig")[0];

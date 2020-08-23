@@ -1,3 +1,10 @@
+import wasmExports from '../../Cargo.toml'
+import { skLen, pkLen, row_sizes_by_threshold, commitment_sizes_by_threshold, poly_sizes_by_threshold } from './constants'
+import { wasmHelpers } from './wasm_helpers'
+import { uint8ArrayToHex } from './convert'
+import { OrderedShare } from './ordered_share'
+import { DOM } from './dom'
+
 (function() {
 
     let clickLocked = false;
@@ -257,7 +264,7 @@
         if (shares.length != totalCells) {
             return;
         }
-        for (i=0; i<totalCells; i++) {
+        for (let i=0; i<totalCells; i++) {
             let share = shares[i];
             if (share.from == activeCell.from) {
                 share.bold();
@@ -273,7 +280,7 @@
         if (shares.length != totalCells) {
             return;
         }
-        for (i=0; i<totalCells; i++) {
+        for (let i=0; i<totalCells; i++) {
             let share = shares[i];
             if (share.from == activeCell.from) {
                 share.unbold();
@@ -289,7 +296,7 @@
         if (shares.length != totalCells) {
             return;
         }
-        for (i=0; i<totalCells; i++) {
+        for (let i=0; i<totalCells; i++) {
             let share = shares[i];
             if (share.to == activeCell.to) {
                 share.bold();
@@ -305,7 +312,7 @@
         if (shares.length != totalCells) {
             return;
         }
-        for (i=0; i<totalCells; i++) {
+        for (let i=0; i<totalCells; i++) {
             let share = shares[i];
             if (share.to == activeCell.to) {
                 share.unbold();
@@ -401,8 +408,8 @@
             DOM.dkg.shares.append(row);
         }
         // activate random cell
-        firstFrom = Math.floor(totalNodes * Math.random());
-        firstTo = Math.floor(totalNodes * Math.random());
+        const firstFrom = Math.floor(totalNodes * Math.random());
+        const firstTo = Math.floor(totalNodes * Math.random());
         let firstIndex = firstFrom * totalNodes + firstTo;
         shares[firstIndex].activate();
         // show group master public key

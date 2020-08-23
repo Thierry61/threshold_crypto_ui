@@ -1,9 +1,13 @@
+import wasmExports from '../../Cargo.toml'
+import { skLen, pkLen, sigLen, commitment_sizes_by_threshold, poly_sizes_by_threshold } from './constants'
+import { hexToUint8Array } from './convert'
+
 // threshold_crypto wasm calls. Since they operate on single bytes at a time
 // it's handy to have helpers to do the required looping.
 
-let isWasming = false;
+export let isWasming = false;
 
-let wasmHelpers = new (function() {
+export const wasmHelpers = new (function() {
 
 // s is secret key unit8array
 this.sk_bytes_to_pk_bytes = function(s) {

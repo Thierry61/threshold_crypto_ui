@@ -1,3 +1,9 @@
+import { errorMessages, ErrorDisplay } from './errors'
+import { skLen, maxMsgLen } from './constants'
+import { isWasming, wasmHelpers } from './wasm_helpers'
+import { asciiToUint8Array, hexToUint8Array, uint8ArrayToHex } from './convert'
+import { DOM } from './dom'
+
 (function() {
 
 DOM.signMsg = {};

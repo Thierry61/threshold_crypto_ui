@@ -1,3 +1,4 @@
-bls-standalone.html
+.cache
+dist
+node_modules
 target
-generators/*.rs
