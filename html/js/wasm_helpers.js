@@ -1,5 +1,5 @@
 import wasmExports from '../../Cargo.toml'
-import { skLen, pkLen, sigLen, commitment_sizes_by_threshold, poly_sizes_by_threshold } from './constants'
+import { skLen, pkLen, sigLen, decryptionShareLen, commitment_sizes_by_threshold, poly_sizes_by_threshold } from './constants'
 import { hexToUint8Array } from './convert'
 
 // threshold_crypto wasm calls. Since they operate on single bytes at a time
